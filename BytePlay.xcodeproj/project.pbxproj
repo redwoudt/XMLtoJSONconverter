@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DBB0334C1A08D1530066A394 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBB0334B1A08D1530066A394 /* main.cpp */; };
+		DB959C571ADE9923001DCE44 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB959C561ADE9923001DCE44 /* main.cpp */; };
+		DB9D33021B43F48C008A6A4B /* Parser_1MS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB9D33001B43F48C008A6A4B /* Parser_1MS.cpp */; };
+		DB9D33051B43F8B0008A6A4B /* MenuNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB9D33031B43F8B0008A6A4B /* MenuNode.cpp */; };
+		DB9D33081B4409E0008A6A4B /* Content.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB9D33061B4409E0008A6A4B /* Content.cpp */; };
+		DB9D330B1B442724008A6A4B /* Item1MS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB9D33091B442724008A6A4B /* Item1MS.cpp */; };
 		DBB0334E1A08D1530066A394 /* BytePlay.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = DBB0334D1A08D1530066A394 /* BytePlay.1 */; };
 /* End PBXBuildFile section */
 
@@ -25,8 +29,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DB79C0E21B458C7E00336D30 /* output */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = output; sourceTree = "<group>"; };
+		DB959C561ADE9923001DCE44 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		DB9D33001B43F48C008A6A4B /* Parser_1MS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Parser_1MS.cpp; sourceTree = "<group>"; };
+		DB9D33011B43F48C008A6A4B /* Parser_1MS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Parser_1MS.h; sourceTree = "<group>"; };
+		DB9D33031B43F8B0008A6A4B /* MenuNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuNode.cpp; sourceTree = "<group>"; };
+		DB9D33041B43F8B0008A6A4B /* MenuNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuNode.h; sourceTree = "<group>"; };
+		DB9D33061B4409E0008A6A4B /* Content.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Content.cpp; sourceTree = "<group>"; };
+		DB9D33071B4409E0008A6A4B /* Content.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Content.h; sourceTree = "<group>"; };
+		DB9D33091B442724008A6A4B /* Item1MS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Item1MS.cpp; sourceTree = "<group>"; };
+		DB9D330A1B442724008A6A4B /* Item1MS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item1MS.h; sourceTree = "<group>"; };
 		DBB033481A08D1530066A394 /* BytePlay */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BytePlay; sourceTree = BUILT_PRODUCTS_DIR; };
-		DBB0334B1A08D1530066A394 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		DBB0334D1A08D1530066A394 /* BytePlay.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = BytePlay.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -44,6 +57,16 @@
 		DBB0333F1A08D1530066A394 = {
 			isa = PBXGroup;
 			children = (
+				DB79C0E21B458C7E00336D30 /* output */,
+				DB9D33091B442724008A6A4B /* Item1MS.cpp */,
+				DB9D330A1B442724008A6A4B /* Item1MS.h */,
+				DB9D33061B4409E0008A6A4B /* Content.cpp */,
+				DB9D33071B4409E0008A6A4B /* Content.h */,
+				DB9D33031B43F8B0008A6A4B /* MenuNode.cpp */,
+				DB9D33041B43F8B0008A6A4B /* MenuNode.h */,
+				DB9D33001B43F48C008A6A4B /* Parser_1MS.cpp */,
+				DB9D33011B43F48C008A6A4B /* Parser_1MS.h */,
+				DB959C561ADE9923001DCE44 /* main.cpp */,
 				DBB0334A1A08D1530066A394 /* BytePlay */,
 				DBB033491A08D1530066A394 /* Products */,
 			);
@@ -60,7 +83,6 @@
 		DBB0334A1A08D1530066A394 /* BytePlay */ = {
 			isa = PBXGroup;
 			children = (
-				DBB0334B1A08D1530066A394 /* main.cpp */,
 				DBB0334D1A08D1530066A394 /* BytePlay.1 */,
 			);
 			path = BytePlay;
@@ -117,7 +139,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DBB0334C1A08D1530066A394 /* main.cpp in Sources */,
+				DB9D33021B43F48C008A6A4B /* Parser_1MS.cpp in Sources */,
+				DB959C571ADE9923001DCE44 /* main.cpp in Sources */,
+				DB9D33051B43F8B0008A6A4B /* MenuNode.cpp in Sources */,
+				DB9D33081B4409E0008A6A4B /* Content.cpp in Sources */,
+				DB9D330B1B442724008A6A4B /* Item1MS.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,6 +251,7 @@
 				DBB033531A08D1530066A394 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
