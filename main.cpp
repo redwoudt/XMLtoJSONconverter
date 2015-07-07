@@ -3,6 +3,8 @@ using std::cout;
 using std::endl;
 #include <fstream>
 using std::ifstream;
+using std::ofstream;
+using std::ostream;
 using std::getline;
 
 #include <string>
@@ -15,6 +17,8 @@ int main(){
     string provider = "TasteMade";
     Parser_1MS parser(provider);
     ifstream input("/Users/fre04/Documents/NicheVideo/1mainstream/tm.xml");
+    
     input >> parser;
+    cout << parser;
     return 0;
 }

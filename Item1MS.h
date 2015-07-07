@@ -37,6 +37,7 @@ public:
     string sourceId;
     double episodeNumber;
     string label;
+    string labelScheme;
     set<string> * categories;
     string provider;
 public:
@@ -54,6 +55,7 @@ public:
         sourceId = "";
         episodeNumber = 0.0;
         label = "";
+        labelScheme = "";
         categories = new set<string>;
     }
     ~Item1MS(){
@@ -75,7 +77,9 @@ public:
         << "sourceId: " << sourceId << endl
         << "provider: " << provider<< endl
         << "episodeNumber: " << episodeNumber << endl
-        << "label: " << label << endl;
+        << "label: " << label << endl
+        << "labelScheme: " << labelScheme << endl;
+        
         if (categories != nullptr){
             cout << "categories: {";
             for (const auto & category: *categories){
@@ -134,6 +138,10 @@ public:
         label = str;
     }
     
+    void setLabelScheme(const string &str){
+        labelScheme = str;
+    }
+    
     Content * createContent (){
         Format * contentF = new Format();
         contentF->at = "M";
@@ -171,7 +179,7 @@ public:
         ProgrammeNode * programme = new ProgrammeNode();
         programme->nodeId = uniqueId;
         programme->t = title;
-        //programme->renderhints = ;
+        programme->renderhints = "";
         programme->sy = description;  //synopsis
         //programme->uuid;
         //programme->seasonuuid;
@@ -184,6 +192,20 @@ public:
         programme->provider = provider;
         //programme->cutv;
         return programme;
+    }
+    
+    MenuChildNode * createChildNode(){
+        MenuChildNode * child = new MenuChildNode();
+        child->nodeId = uniqueId;
+        child->t = title;
+        child->renderhints = ""; //Mandatory
+        child->sy = description;  //synopsis
+        child->uuid = "";
+        //child->seasonuuid = "";
+        child->seriesuuid = uniqueId;
+        //child->seasonNumber = "";
+        //child->cutv = "";
+        return child;
     }
     
 };

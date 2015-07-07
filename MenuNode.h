@@ -90,7 +90,7 @@ public:
 };
 
 class MenuChildNode : public Node{
-protected:
+public:
     string renderhints; //Mandatory
     string sy;  //synopsis
     string uuid;
@@ -102,16 +102,39 @@ protected:
     vector<ProgrammeNode *> programmeNode;
     
 public:
-    MenuChildNode(): Node("MENU"){
+    MenuChildNode(string p = "unknown"): provider(p), Node("MENU"){
         renderhints = ""; //Mandatory
         sy = "";  //synopsis
         uuid = "";
         seasonuuid = "";
         seriesuuid = "";
         seasonNumber = "";
-        provider = "";
         cutv = "";
     }
+    
+    void setNodeId(const string & str){
+        nodeId = str;
+    }
+    
+    void setTitle(const string & str){
+        t = str;
+    }
+    
+    void setData(MenuChildNode *data){
+        if (data != nullptr){
+            t = data->t;
+            nodeId = data->nodeId;
+            renderhints = data->renderhints; //Mandatory
+            sy = data->sy;  //synopsis
+            uuid = data->uuid;
+            seasonuuid = data->seasonuuid;
+            seriesuuid = data->seriesuuid;
+            seasonNumber = data->seasonNumber;
+            provider = data->provider;
+            cutv = data->cutv;
+        }
+    }
+    
     void display(){
         cout << "\tMenuChildNode " << endl;
         Node::display();
@@ -123,11 +146,12 @@ public:
         << ", seasonNumber: " << seasonNumber
         << ", provider: " << provider
         << ", cutv: " << cutv <<"}" << endl;
+#if 0
         cout << "\t\tProgramme children: " << endl;
         for (const auto & programme: programmeNode){
             programme->display();
         }
-        
+#endif
     }
 };
 
@@ -154,7 +178,12 @@ public:
             nodeId = data->nodeId;
         }
     }
-    
+    void addChildNode(MenuChildNode * item){
+        if (childrenNodes == nullptr){
+            childrenNodes = new vector<MenuChildNode *>;
+        }
+        childrenNodes->push_back(item);
+    }
     void addProgramme(ProgrammeNode * item){
         if (programmeNode == nullptr){
             programmeNode = new vector<ProgrammeNode *>;
@@ -170,7 +199,6 @@ public:
         cout << "MenuNode: " << endl;
         Node::display();
         cout << "brandUri: " << branduri << endl;
-#if 0
         //child nodes
         if (childrenNodes!=nullptr){
             for (const auto & child : *childrenNodes){
@@ -183,7 +211,6 @@ public:
                 programme->display();
             }
         }
-#endif
     }
 };
 
