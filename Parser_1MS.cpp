@@ -265,9 +265,14 @@ ifstream & operator>>(ifstream &input, Parser_1MS &parser){
     
     return input;
 };
+#ifndef TEST
+#define CATALOGUE_DIR "./catalognode/"
+#define CONTENT_DETAILS_DIR "./contentdetails/"
+#else
+#define CATALOGUE_DIR "/Users/fre04/Sandpit/Reformat1MS/catalognode/"
+#define CONTENT_DETAILS_DIR "/Users/fre04/Sandpit/Reformat1MS/contentdetails/"
 
-#define CATALOGUE_DIR "/Users/fre04/Documents/NicheVideo/1mainstream/catalognode/"
-#define CONTENT_DETAILS_DIR "/Users/fre04/Documents/NicheVideo/1mainstream/contentdetails/"
+#endif
 
 ostream & operator<<(ostream &output, Parser_1MS &parser){
     output << "Starting with catalognode output..." << endl;
@@ -278,7 +283,7 @@ ostream & operator<<(ostream &output, Parser_1MS &parser){
         if (channelDir){
             struct dirent * next_file;
             char filepath[256];
-            while(next_file = readdir(channelDir)){
+            while((next_file = readdir(channelDir))!=nullptr){
                 // build the full path for each file in the folder
                 sprintf(filepath, "%s/%s", CATALOGUE_DIR, next_file->d_name);
                 remove(filepath);
@@ -287,18 +292,18 @@ ostream & operator<<(ostream &output, Parser_1MS &parser){
         
         //create channel files:
         mkdir(CATALOGUE_DIR, 0777);
-        ofstream channelFile (CATALOGUE_DIR + channel->nodeId +".txt");
+        ofstream channelFile (CATALOGUE_DIR + channel->nodeId +".json");
         //push out channel metadata:
         if (channelFile.is_open()){
-            parser.addChannelMetadata(channelFile, channel);
+            parser.addChannelMetadata(channelFile, channel, false);
         }
         if (channel->childrenNodes){
             for (const auto & node : *channel->childrenNodes){
                 cout << "."<<std::flush;
                 if (node->nodeId != ""){
-                    ofstream nodeFile (CATALOGUE_DIR + node->nodeId +".txt");
+                    ofstream nodeFile (CATALOGUE_DIR + node->nodeId +".json");
                     if (nodeFile.is_open()){
-                        parser.addChildMetadata(nodeFile, node);
+                        parser.addChildMetadata(nodeFile, node, false);
                         nodeFile.close();
                     }
                 }
@@ -307,16 +312,14 @@ ostream & operator<<(ostream &output, Parser_1MS &parser){
         channelFile.close();
         cout << endl;
     }
-
     output << "Starting with contentdetails output..." << endl;
-    int counter = 1;
     //remove files in directory
     DIR *channelDir = opendir(CONTENT_DETAILS_DIR);
     
     if (channelDir){
         struct dirent * next_file;
         char filepath[256];
-        while(next_file = readdir(channelDir)){
+        while((next_file = readdir(channelDir))){
             // build the full path for each file in the folder
             sprintf(filepath, "%s/%s", CONTENT_DETAILS_DIR, next_file->d_name);
             remove(filepath);
@@ -325,13 +328,14 @@ ostream & operator<<(ostream &output, Parser_1MS &parser){
     mkdir(CONTENT_DETAILS_DIR, 0777);
     for (const auto & item : parser.contentItems){
         cout << "." <<std::flush;
-        ofstream contentFile (CONTENT_DETAILS_DIR + item->uuid +".txt");
+        ofstream contentFile (CONTENT_DETAILS_DIR + item->uuid +".json");
         if (contentFile.is_open()){
-            parser.addContentMetadata(contentFile, item);
+            parser.addContentMetadata(contentFile, item, false);
             contentFile.close();
         }
     }
     cout << endl;
+    
 
     output << "...Complete!" << endl;
     return output;

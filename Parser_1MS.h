@@ -20,6 +20,7 @@ using std::string;
 
 #include "Item1MS.h"
 #include "MenuNode.h"
+#include "json.h"
 
 static const string SERIES = "series";
 static const string EPISODE = "episode";
@@ -132,7 +133,41 @@ public:
             
         }
     }
-    
+    void addContentMetadata(ofstream & file, Content * item, bool text){
+        if (item == nullptr) return;
+        if (text == true){
+            addContentMetadata(file, item);
+        }
+        else {
+            Json::Value root;
+            root["uuid"] = item->uuid;
+            root["seasonuuid"] = item->seasonUuid;
+            root["seriesuuid"] = item->seriesUuid;
+            root["sy"] = item->sy;
+            root["t"] = item->t;
+            Json::Value child;
+            if (item->formats){
+                for (const auto & format : *item->formats){
+                    child.clear();
+                    child["at"] = format->at;
+                    child["streamLink"] = format->playbackLink;
+                    child["imageUri"] = format->thumbnailLink;
+                    child["oigid"] = format->oigid;
+                    child["d"] = format->d;
+                    child["hd"] = format->hd;
+                    child["provider"] = format->provider;
+                    root["formats"].append(child);
+                }
+                
+            }
+            else {
+                root["formats"] = Json::Value::null;
+            }     
+            file << root;
+            cout << root;
+        }
+    }
+
     void addContentMetadata(ofstream & file, Content * item){
         if (item == nullptr) return;
         if (file.is_open()){
@@ -169,7 +204,43 @@ public:
             file << "}" << endl;
         }
     }
-    
+    void addChildMetadata(ofstream & file, MenuChildNode * node, bool text){
+        if (node == nullptr) return;
+        if (text == true){
+            addChildMetadata(file, node);
+        }
+        else {
+            if (file.is_open()){
+                Json::Value root;
+                root["nodeid"] = node->nodeId;
+                root["nodetype"] = node->nodeType;
+                root["t"] = node->t;
+                root["imageUri"] = node->thumbnail;
+                
+                Json::Value child;
+                if (!node->programmeNode.empty()){
+                    for (const auto & programme : node->programmeNode){
+                        child.clear();
+                        child["nodetype"] = programme->nodeType;
+                        child["programmeid"] = programme->nodeId;
+                        child["t"] = programme->t;
+                        //child["renderhints"] = programme->renderhints;
+                        child["sy"] = programme->sy;
+                        child["imageUri"] = programme->thumbnail;
+                        //child["uuid"] = node->uuid;
+                        root["childnodes"].append(child);
+                    }
+                    
+                }
+                else {
+                    root["childnodes"] = Json::Value::null;
+                }
+                file << root;
+                cout << root;
+            }
+        }
+    }
+
     void addChildMetadata(ofstream & file, MenuChildNode * node){
         if (node == nullptr) return;
         if (file.is_open()){
@@ -187,7 +258,7 @@ public:
                     insertLine(file, "nodetype", programme->nodeType, lineSpace*2);
                     insertLine(file, "nodeid", programme->nodeId, lineSpace*2);
                     insertLine(file, "t", programme->t, lineSpace*2);
-                    insertLine(file, "renderhints", programme->renderhints, lineSpace*2);
+                    //insertLine(file, "renderhints", programme->renderhints, lineSpace*2);
                     insertLine(file, "sy", programme->sy, lineSpace*2, true);
                     //insertLine(file, "uuid", programme->uuid, lineSpace*2);
                     if (programme == node->programmeNode.back()){
@@ -201,6 +272,55 @@ public:
             }
             file << pad + "]"<< endl;
             file << "}" << endl;
+        }
+    }
+    
+    void addChannelMetadata(ofstream & file, MenuNode * channel, bool text){
+        if (channel == nullptr) return;
+        if (text == true){
+            addChannelMetadata(file, channel);
+        }
+        else { //do json
+            if (file.is_open()){
+                Json::Value root;
+                root["nodeid"] = channel->nodeId;
+                root["nodetype"] = channel->nodeType;
+                root["t"] = channel->t;
+                root["imageUri"] = channel->branduri;
+                Json::Value child;
+                if (channel->childrenNodes){
+                    for (const auto & node : *channel->childrenNodes){
+                        child.clear();
+                        child["nodetype"] = node->nodeType;
+                        child["nodeid"] = node->nodeId;
+                        child["t"] = node->t;
+                        string hints = "{ ";
+                        if (node->hints.s_template != ""){
+                            hints+= "\"template\": \"" + node->hints.s_template + "\" ";
+                            //child["renderhints"]["template"] =node->hints.s_template;
+                        }
+                        if (node->hints.s_imagetype != ""){
+                            if (hints != "{ "){
+                                hints+=", ";
+                            }
+                            hints+= "\"imagetype\": \"" + node->hints.s_imagetype + "\" ";
+                            //child["renderhints"]["imagetype"] =node->hints.s_imagetype;
+                        }
+                        hints+= "}";
+                        child["renderhints"] = hints;
+                        child["sy"] = node->sy;
+                        child["imageUri"] = node->thumbnail;
+                        //child["uuid"] = node->uuid;
+                        root["childnodes"].append(child);
+                    }
+                    
+                }
+                else {
+                    root["childnodes"] = Json::Value::null;
+                }
+                file << root;
+                cout << root;
+            }
         }
     }
     
@@ -221,7 +341,7 @@ public:
                     insertLine(file, "nodetype", node->nodeType, lineSpace*2);
                     insertLine(file, "nodeid", node->nodeId, lineSpace*2);
                     insertLine(file, "t", node->t, lineSpace*2);
-                    insertLine(file, "renderhints", node->renderhints, lineSpace*2);
+                    //insertLine(file, "renderhints", node->renderhints, lineSpace*2);
                     insertLine(file, "sy", node->sy, lineSpace*2, true);
                     //insertLine(file, "uuid", node->uuid, lineSpace*2);
                     if (node == channel->childrenNodes->back()){

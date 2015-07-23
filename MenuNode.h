@@ -18,24 +18,38 @@ using std::vector;
 using std::cout;
 using std::endl;
 
+#include <fstream>
+using std::ifstream;
+using std::ofstream;
+using std::ostream;
+using std::getline;
+
+
 class HeadingNode{
 protected:
     string t;
 };
+
+struct renderhints{
+    string s_template;
+    string s_imagetype;
+};
+
 
 class Node{
 public:
     string nodeId; //Mandatory
     string nodeType; //Mandatory
     string t; //Mandatory
-    Node(string type) : nodeType(type){
-        nodeId = "";
-        t = "";
-    }
+    renderhints hints; //Mandatory
+    Node(const string & type, const string & title = "", const string & nId = "") : nodeType(type), nodeId(nId), t(title){}
+
     void display(){
         cout << "{nodeId: " << nodeId
         << ", nodeType: " << nodeType
-        << ", title: " << t << "}"<< endl;
+        << ", title: " << t << "}"
+        << ", render hints: " << "template: " << hints.s_template << ", imagetype: " << hints.s_imagetype << "}"
+        << endl;
     }
 };
 
@@ -43,7 +57,6 @@ class ProgrammeNode : public Node {
 public:
         //nodeId == programmeId
         //t == title
-    string renderhints;
     string sy;  //synopsis
     string uuid;
     string seasonuuid;
@@ -54,10 +67,10 @@ public:
     int availEndTime;
     int broadcastTime;
     string provider;
+    string thumbnail;
     string cutv;
 public:
     ProgrammeNode() : Node("PROGRAMME"){
-        renderhints = "";
         sy = "";  //synopsis
         uuid = "";
         seasonuuid = "";
@@ -69,12 +82,14 @@ public:
         broadcastTime = 0;
         provider = "";
         cutv = "";
+        thumbnail = "";
+        hints.s_template = "";
+        hints.s_imagetype = "";
     }
     void display(){
         cout << "\tProgramme Node: " << endl;
         Node::display();
-        cout << "\t{ renderhints: " << renderhints
-        << ", sy: " << sy
+        cout << ", sy: " << sy
         << ", uuid: " << uuid
         << ", seasonuuid: " << seasonuuid
         << ", seriesuuid: " << seriesuuid
@@ -91,7 +106,6 @@ public:
 
 class MenuChildNode : public Node{
 public:
-    string renderhints; //Mandatory
     string sy;  //synopsis
     string uuid;
     string seasonuuid;
@@ -99,17 +113,22 @@ public:
     string seasonNumber;
     string provider;
     string cutv;
+    string thumbnail;
     vector<ProgrammeNode *> programmeNode;
     
 public:
-    MenuChildNode(string p = "unknown"): provider(p), Node("MENU"){
-        renderhints = ""; //Mandatory
+    MenuChildNode(string p = "unknown"): Node("MENU"), provider(p){
+        hints.s_template = ""; //Mandatory
+        hints.s_imagetype = ""; //Mandatory
         sy = "";  //synopsis
         uuid = "";
         seasonuuid = "";
         seriesuuid = "";
         seasonNumber = "";
         cutv = "";
+        thumbnail = "";
+        hints.s_template = "3COL";
+        hints.s_imagetype = "16-9";
     }
     
     void setNodeId(const string & str){
@@ -124,7 +143,7 @@ public:
         if (data != nullptr){
             t = data->t;
             nodeId = data->nodeId;
-            renderhints = data->renderhints; //Mandatory
+            //renderhints = data->renderhints; //Mandatory
             sy = data->sy;  //synopsis
             uuid = data->uuid;
             seasonuuid = data->seasonuuid;
@@ -132,14 +151,14 @@ public:
             seasonNumber = data->seasonNumber;
             provider = data->provider;
             cutv = data->cutv;
+            thumbnail = data->thumbnail;
         }
     }
     
     void display(){
         cout << "\tMenuChildNode " << endl;
         Node::display();
-        cout << "\t{renderhints: " << renderhints
-        << ", sy: " << sy
+        cout << ", sy: " << sy
         << ", uuid: " << uuid
         << ", seasonuuid: " << seasonuuid
         << ", seriesuuid: " << seriesuuid
@@ -158,18 +177,26 @@ public:
 class MenuNode : public Node{
 public:
     string branduri;
+    vector<MenuNode *> * menuNodes;
     vector<MenuChildNode *> * childrenNodes;
     vector<ProgrammeNode *> * programmeNode;
+    
 public:
-    MenuNode() : Node("MENU"){
+    friend ifstream & operator>>(ifstream &input, MenuNode &node);
+    friend ostream & operator<<(ostream &output, MenuNode &node);
+    MenuNode(const string & title = "", const string & nId = "") : Node("MENU", title, nId){
         branduri = "";
+        menuNodes = nullptr;
         childrenNodes = nullptr;
         programmeNode = nullptr;
+        hints.s_template = "MENUPANEL";
+        hints.s_imagetype = "";
     }
     
     ~MenuNode(){
         if (programmeNode!=nullptr) delete programmeNode;
         if (childrenNodes!=nullptr) delete childrenNodes;
+        if (menuNodes!=nullptr) delete menuNodes;
     }
     
     void setData(ProgrammeNode *data){
@@ -177,6 +204,12 @@ public:
             t = data->t;
             nodeId = data->nodeId;
         }
+    }
+    void addMenuNode(MenuNode * item){
+        if (menuNodes == nullptr){
+            menuNodes = new vector<MenuNode *>;
+        }
+        menuNodes->push_back(item);
     }
     void addChildNode(MenuChildNode * item){
         if (childrenNodes == nullptr){
@@ -199,6 +232,12 @@ public:
         cout << "MenuNode: " << endl;
         Node::display();
         cout << "brandUri: " << branduri << endl;
+        //menu nodes
+        if (menuNodes!=nullptr){
+            for (const auto & menu : *menuNodes){
+                menu->display();
+            }
+        }
         //child nodes
         if (childrenNodes!=nullptr){
             for (const auto & child : *childrenNodes){

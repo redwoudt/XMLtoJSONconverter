@@ -10,15 +10,40 @@ using std::getline;
 #include <string>
 using std::string;
 
-#include "Parser_1MS.h"
+#include "Parser.h"
+#define TEST 1
 
-int main(){
-    //TODO add input filename to input of program, and destination directory /mainstream/ will create /mainstream/nodes /mainstream/programmes - listing the nodes and programmes as seperate files with the unique id as the file name
-    string provider = "TasteMade";
-    Parser_1MS parser(provider);
-    ifstream input("/Users/fre04/Documents/NicheVideo/1mainstream/tm.xml");
+int main(int argc, char* argv[]){
+    string provider = "";
+    ifstream *input = nullptr;
+    input = new ifstream(string("/Users/fre04/Sandpit/Reformat1MS/index.json"));
+#ifndef TEST
+    for (int i = 0; i < argc; ++i){
+        cout << argv[i] << endl;
+        if (string(argv[i]) == "-i"){
+            if ( i + 1 < argc){
+                input = new ifstream(string(argv[++i]));
+                cout << string(argv[i]) <<endl;
+            } else{
+                std::cerr << "-i option requires one argument." << endl;
+            }
+        }
+    }
+#endif
+    if (input != nullptr){
+        Parser parser;
+        (*input) >> parser;
+        parser.display();
+        
+    }
     
-    input >> parser;
-    cout << parser;
+#if 0
+    if (input != nullptr){
+        Parser_1MS parser(provider);
+        (*input) >> parser;
+        cout << parser;
+    }
+#endif
+    
     return 0;
 }

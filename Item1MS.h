@@ -41,7 +41,7 @@ public:
     set<string> * categories;
     string provider;
 public:
-    Item1MS(string p = "unknown", string id = ""): provider(p), uniqueId(id){
+    Item1MS(string p = "unknown", string id = ""): uniqueId(id), provider(p){
         pubDate = "";
         title = "";
         description = "";
@@ -179,8 +179,8 @@ public:
         ProgrammeNode * programme = new ProgrammeNode();
         programme->nodeId = uniqueId;
         programme->t = title;
-        programme->renderhints = "";
         programme->sy = description;  //synopsis
+        programme->thumbnail = thumbnailUrl;
         //programme->uuid;
         //programme->seasonuuid;
         //programme->seriesuuid;
@@ -198,9 +198,9 @@ public:
         MenuChildNode * child = new MenuChildNode();
         child->nodeId = uniqueId;
         child->t = title;
-        child->renderhints = ""; //Mandatory
         child->sy = description;  //synopsis
         child->uuid = "";
+        child->thumbnail = thumbnailUrl;
         //child->seasonuuid = "";
         child->seriesuuid = uniqueId;
         //child->seasonNumber = "";

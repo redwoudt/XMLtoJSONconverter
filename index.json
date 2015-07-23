@@ -1,0 +1,13 @@
+{
+    "platform": "1Mainstream",
+    "contentProviders" : [
+        {
+            "provider": "Taste Made",
+            "dataLink": "/Users/fre04/Sandpit/Reformat1MS/inputData/TasteMade.xml"
+        },
+        {
+            "provider": "Awesoweness",
+            "dataLink": "/Users/fre04/Sandpit/Reformat1MS/inputData/Awesomeness.xml"
+        }
+    ]
+}

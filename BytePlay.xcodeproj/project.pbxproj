@@ -7,12 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DB2E7DCD1B5677A20000D238 /* jsoncpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB2E7DCC1B5677A20000D238 /* jsoncpp.cpp */; };
 		DB959C571ADE9923001DCE44 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB959C561ADE9923001DCE44 /* main.cpp */; };
 		DB9D33021B43F48C008A6A4B /* Parser_1MS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB9D33001B43F48C008A6A4B /* Parser_1MS.cpp */; };
 		DB9D33051B43F8B0008A6A4B /* MenuNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB9D33031B43F8B0008A6A4B /* MenuNode.cpp */; };
 		DB9D33081B4409E0008A6A4B /* Content.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB9D33061B4409E0008A6A4B /* Content.cpp */; };
 		DB9D330B1B442724008A6A4B /* Item1MS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DB9D33091B442724008A6A4B /* Item1MS.cpp */; };
 		DBB0334E1A08D1530066A394 /* BytePlay.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = DBB0334D1A08D1530066A394 /* BytePlay.1 */; };
+		DBBA82FA1B60F3B2001A5B06 /* Parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBBA82F81B60F3B2001A5B06 /* Parser.cpp */; };
+		DBBA82FE1B610E47001A5B06 /* pugixml.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBBA82FD1B610E47001A5B06 /* pugixml.cpp */; };
+		DBBA83051B61200D001A5B06 /* Item.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBBA83031B61200D001A5B06 /* Item.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,7 +33,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DB2E7DCA1B5677A20000D238 /* json-forwards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "json-forwards.h"; sourceTree = "<group>"; };
+		DB2E7DCB1B5677A20000D238 /* json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json.h; sourceTree = "<group>"; };
+		DB2E7DCC1B5677A20000D238 /* jsoncpp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jsoncpp.cpp; sourceTree = "<group>"; };
 		DB79C0E21B458C7E00336D30 /* output */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = output; sourceTree = "<group>"; };
+		DB79C0E31B4BD26200336D30 /* MakeFile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = MakeFile; path = ../linux/1MS_Reformat/MakeFile; sourceTree = "<group>"; };
 		DB959C561ADE9923001DCE44 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		DB9D33001B43F48C008A6A4B /* Parser_1MS.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Parser_1MS.cpp; sourceTree = "<group>"; };
 		DB9D33011B43F48C008A6A4B /* Parser_1MS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Parser_1MS.h; sourceTree = "<group>"; };
@@ -41,6 +49,15 @@
 		DB9D330A1B442724008A6A4B /* Item1MS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item1MS.h; sourceTree = "<group>"; };
 		DBB033481A08D1530066A394 /* BytePlay */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BytePlay; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBB0334D1A08D1530066A394 /* BytePlay.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = BytePlay.1; sourceTree = "<group>"; };
+		DBBA82F71B60E742001A5B06 /* index.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = index.json; sourceTree = "<group>"; };
+		DBBA82F81B60F3B2001A5B06 /* Parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Parser.cpp; sourceTree = "<group>"; };
+		DBBA82F91B60F3B2001A5B06 /* Parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Parser.h; sourceTree = "<group>"; };
+		DBBA82FB1B610E47001A5B06 /* pugiconfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pugiconfig.h; sourceTree = "<group>"; };
+		DBBA82FC1B610E47001A5B06 /* pugixml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pugixml.h; sourceTree = "<group>"; };
+		DBBA82FD1B610E47001A5B06 /* pugixml.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pugixml.cpp; sourceTree = "<group>"; };
+		DBBA83021B611FDD001A5B06 /* notes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = notes.txt; sourceTree = "<group>"; };
+		DBBA83031B61200D001A5B06 /* Item.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Item.cpp; sourceTree = "<group>"; };
+		DBBA83041B61200D001A5B06 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,16 +74,24 @@
 		DBB0333F1A08D1530066A394 = {
 			isa = PBXGroup;
 			children = (
+				DBBA83031B61200D001A5B06 /* Item.cpp */,
+				DBBA83041B61200D001A5B06 /* Item.h */,
+				DBBA82FF1B610E53001A5B06 /* utils */,
+				DBBA82F81B60F3B2001A5B06 /* Parser.cpp */,
+				DBBA82F91B60F3B2001A5B06 /* Parser.h */,
 				DB79C0E21B458C7E00336D30 /* output */,
+				DBBA83021B611FDD001A5B06 /* notes.txt */,
 				DB9D33091B442724008A6A4B /* Item1MS.cpp */,
 				DB9D330A1B442724008A6A4B /* Item1MS.h */,
 				DB9D33061B4409E0008A6A4B /* Content.cpp */,
 				DB9D33071B4409E0008A6A4B /* Content.h */,
+				DB79C0E31B4BD26200336D30 /* MakeFile */,
 				DB9D33031B43F8B0008A6A4B /* MenuNode.cpp */,
 				DB9D33041B43F8B0008A6A4B /* MenuNode.h */,
 				DB9D33001B43F48C008A6A4B /* Parser_1MS.cpp */,
 				DB9D33011B43F48C008A6A4B /* Parser_1MS.h */,
 				DB959C561ADE9923001DCE44 /* main.cpp */,
+				DBBA82F71B60E742001A5B06 /* index.json */,
 				DBB0334A1A08D1530066A394 /* BytePlay */,
 				DBB033491A08D1530066A394 /* Products */,
 			);
@@ -86,6 +111,35 @@
 				DBB0334D1A08D1530066A394 /* BytePlay.1 */,
 			);
 			path = BytePlay;
+			sourceTree = "<group>";
+		};
+		DBBA82FF1B610E53001A5B06 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				DBBA83011B610E75001A5B06 /* xml-parser */,
+				DBBA83001B610E66001A5B06 /* json_parser */,
+			);
+			name = utils;
+			sourceTree = "<group>";
+		};
+		DBBA83001B610E66001A5B06 /* json_parser */ = {
+			isa = PBXGroup;
+			children = (
+				DB2E7DCA1B5677A20000D238 /* json-forwards.h */,
+				DB2E7DCB1B5677A20000D238 /* json.h */,
+				DB2E7DCC1B5677A20000D238 /* jsoncpp.cpp */,
+			);
+			name = json_parser;
+			sourceTree = "<group>";
+		};
+		DBBA83011B610E75001A5B06 /* xml-parser */ = {
+			isa = PBXGroup;
+			children = (
+				DBBA82FB1B610E47001A5B06 /* pugiconfig.h */,
+				DBBA82FC1B610E47001A5B06 /* pugixml.h */,
+				DBBA82FD1B610E47001A5B06 /* pugixml.cpp */,
+			);
+			name = "xml-parser";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,9 +193,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DBBA83051B61200D001A5B06 /* Item.cpp in Sources */,
 				DB9D33021B43F48C008A6A4B /* Parser_1MS.cpp in Sources */,
 				DB959C571ADE9923001DCE44 /* main.cpp in Sources */,
+				DBBA82FE1B610E47001A5B06 /* pugixml.cpp in Sources */,
+				DBBA82FA1B60F3B2001A5B06 /* Parser.cpp in Sources */,
 				DB9D33051B43F8B0008A6A4B /* MenuNode.cpp in Sources */,
+				DB2E7DCD1B5677A20000D238 /* jsoncpp.cpp in Sources */,
 				DB9D33081B4409E0008A6A4B /* Content.cpp in Sources */,
 				DB9D330B1B442724008A6A4B /* Item1MS.cpp in Sources */,
 			);
