@@ -1,5 +1,4 @@
 TODO:
 
-1) replace Item1MS with Item
-2) remove Parser_1MS
-
+1) clean up Parser to use different data structure to menunode
+2)clean up MenuNode (to be more like old version)

@@ -84,7 +84,9 @@ public:
     string provider;
     string pubDate;
     string title;
+    string type;
     string description;
+    string renderHints;
     vector<source *> sources;
     vector<thumbnail *> thumbnails;
     vector<category *> categories;
@@ -147,6 +149,14 @@ public:
         
     }
     
+    string & getProvider(){
+        return provider;
+    }
+    
+    vector<category *> & getCategories() {
+        return categories;
+    }
+    
     void addCategory(category * cat){
         if (cat != nullptr){
             categories.push_back(cat);
@@ -178,7 +188,10 @@ public:
     void setSecondaryTitle(const string &str){
         secondaryTitle = str;
     }
-
+    vector<source *> & getSources(){
+        return sources;
+    }
+    
     void addSource(source * src){
         if (src != nullptr){
             sources.push_back(src);
@@ -193,6 +206,11 @@ public:
     void setRating (rating & rate){
         pr = rate;
     }
+    
+    price & getPrice(){
+        return priceType;
+    }
+    
     void setPrice(price & money){
         priceType = money;
     }

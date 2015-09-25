@@ -11,7 +11,6 @@ using std::getline;
 using std::string;
 
 #include "Parser.h"
-#define TEST 1
 
 int main(int argc, char* argv[]){
     string provider = "";
@@ -33,7 +32,8 @@ int main(int argc, char* argv[]){
     if (input != nullptr){
         Parser parser;
         (*input) >> parser;
-        parser.display();
+        //parser.display();
+        cout << parser;
         
     }
     

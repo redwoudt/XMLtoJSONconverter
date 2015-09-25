@@ -9,6 +9,8 @@
 #ifndef __BytePlay__Parser__
 #define __BytePlay__Parser__
 
+#define TEST 1
+
 #include <iostream>
 using std::cout;
 using std::endl;
@@ -18,12 +20,18 @@ using std::ifstream;
 using std::ofstream;
 using std::ostream;
 using std::getline;
-#include "Item1MS.h"
-#include "MenuNode.h"
+
+#include "DataTree.h"
+#include "json.h"
+
+const string HPCATCHUP = "HPCATCHUP";
+const string HPCATCHUP_NODEID = "BOOKMARK001";
+const string NICHEVIDEO = "NICHEVIDEO";
+const string NICHEVIDEO_NODEID = "BOOKMARK002";
 
 class Parser{
 private:
-    MenuNode * root;
+    DataTree * root;
 public:
     friend ifstream & operator>>(ifstream &input, Parser &parser);
     friend ostream & operator<<(ostream &output, Parser &parser);
@@ -34,6 +42,8 @@ public:
             delete root;
         }
     }
+    void createBookmark(ofstream & file, const string & bookmark);
+    
     void display(){
         if (root!=nullptr){
             root->display();

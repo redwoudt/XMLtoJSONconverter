@@ -13,6 +13,8 @@ using std::string;
 
 #include <vector>
 using std::vector;
+#include <unordered_map>
+using std::unordered_map;
 
 #include <iostream>
 using std::cout;
@@ -23,6 +25,7 @@ using std::ifstream;
 using std::ofstream;
 using std::ostream;
 using std::getline;
+
 
 
 class HeadingNode{
@@ -36,6 +39,7 @@ struct renderhints{
 };
 
 
+
 class Node{
 public:
     string nodeId; //Mandatory
@@ -44,6 +48,8 @@ public:
     renderhints hints; //Mandatory
     Node(const string & type, const string & title = "", const string & nId = "") : nodeType(type), nodeId(nId), t(title){}
 
+    string getTitle(){ return t;}
+    
     void display(){
         cout << "{nodeId: " << nodeId
         << ", nodeType: " << nodeType
@@ -53,6 +59,7 @@ public:
     }
 };
 
+/* ProgrammeNode contains content details */
 class ProgrammeNode : public Node {
 public:
         //nodeId == programmeId
@@ -104,6 +111,7 @@ public:
     
 };
 
+/* MenuChildNode only has programme children */
 class MenuChildNode : public Node{
 public:
     string sy;  //synopsis
@@ -174,6 +182,8 @@ public:
     }
 };
 
+/* MenuNode can have node or programme childrend
+ ** but typically only node children*/
 class MenuNode : public Node{
 public:
     string branduri;
@@ -205,6 +215,51 @@ public:
             nodeId = data->nodeId;
         }
     }
+#if 0
+    void addNode(Item * item, string & remainingCategory){
+        if (item == nullptr || remainingCategory.empty()) return;
+        //get first category
+        size_t pos = remainingCategory.find('/');
+        string category = "";
+        if (pos == string::npos){
+            category = remainingCategory;
+            remainingCategory = "";
+        }
+        else {
+            category = remainingCategory.substr(0, pos);
+            remainingCategory = remainingCategory.substr(pos+1);
+        }
+        bool bSkip = false;
+        //check if it needs to be skipped
+        for (int i = 0; i < numberOfCategoriesToSkip; ++i){
+            if (category.compare(categoriesToSkip[i])==0){
+                bSkip = true;
+                break;
+            }
+        }
+        if (bSkip){
+            addNode(item, remainingCategory);
+        }
+        else{
+            //do I need to add a menu, child menu or programme?
+            
+            //if remainingCategory == "" then add programme to child menu. using category as index to get child menu
+            
+            //else 
+            
+        }
+        
+    }
+    
+    void addNode(Item *item){
+        if (item == nullptr) return;
+        
+        for (int i = 0; i < item->getCategories().size(); ++i){
+            //TODO check for category with label and scheme set - for these add to series with label as series name
+            addNode(item, item->getCategories()[i]->value);
+        }
+    }
+#endif
     void addMenuNode(MenuNode * item){
         if (menuNodes == nullptr){
             menuNodes = new vector<MenuNode *>;
@@ -223,6 +278,8 @@ public:
         }
         programmeNode->push_back(item);
     }
+    
+    
     void setBrandUri(const string str){
         branduri = str;
     }
@@ -232,24 +289,7 @@ public:
         cout << "MenuNode: " << endl;
         Node::display();
         cout << "brandUri: " << branduri << endl;
-        //menu nodes
-        if (menuNodes!=nullptr){
-            for (const auto & menu : *menuNodes){
-                menu->display();
-            }
-        }
-        //child nodes
-        if (childrenNodes!=nullptr){
-            for (const auto & child : *childrenNodes){
-                child->display();
-            }
-        }
-        //programme nodes
-        if (programmeNode!=nullptr){
-            for (const auto & programme : *programmeNode){
-                programme->display();
-            }
-        }
+        
     }
 };
 
